@@ -1,3 +1,20 @@
+/* setting css variables on the root of the document with cascading in mind */
+:root {
+  --base: #00d4ff;
+  --spacing: 10px;
+  --blur: 10px;
+}
+
+img {
+  padding: var(--spacing);
+  background: var(--base);
+  filter: blur(var(--blur));
+}
+
+.hl {
+  color: var(--base);
+}
+
 body {
   text-align: center;
   background: #193549;
