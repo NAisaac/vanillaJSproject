@@ -5,7 +5,7 @@
   <title>Array Cardio 💪</title>
 </head>
 <body>
-  <p><em>Psst: have a look at the JavaScript Console</em>🚀</p>
+  <p>🚀 <em>Look at the JavaScript Console</em> 🚀</p>
   <script>
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
@@ -38,33 +38,62 @@
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
-    var answer2 = inventors.map(function (e) {
+    var answer2a = inventors.map(function (e) {
       return { first: e.first, last: e.last };
     });
-    console.log('answer2', answer2);
+
+    var answer2b = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    console.log('answer2a', answer2a);
+    console.log('answer2b', answer2b);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
-    var answer3 = inventors.sort(function (a, b) {
-      return a.year - b.year;
+    var answer3a = inventors.sort(function (a, b) {
+      if (a.year > b.year) {
+        return 1;
+      } else {
+        return -1;
+      }
     });
-    console.log('answer3', answer3);
+
+    var answer3b = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+    console.log('answer3a', answer3a);
+    console.log('answer3b', answer3b);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
     var answer4 = inventors.reduce(function (preVal, e) {
       return preVal + (e.passed - e.year);
-    });
+    }, 0);
     console.log('answer4', answer4);
 
     // 5. Sort the inventors by years lived
     var answer5 = inventors.sort(function (a, b) {
-      return (a.passed - a.year) - (b.passed - b.year);
+      if ((a.passed - a.year) > (b.passed - b.year)) {
+        return 1;
+      } else {
+        return -1;
+      }
     });
     console.log('answer5', answer5);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+
+    // $.ajax({
+    //   url: "https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris",
+    //   dataType: 'text',
+    //   success: function(data) {
+    //     var elements = $("<body>").html(data)[0]
+    //   }
+    // });
+    //
+    // $.get(
+    //   "https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris",
+    //   function(data) {
+    //     $('#data').append()
+    //   }
+    // )
 
 
     // 7. sort Exercise
@@ -78,16 +107,26 @@
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-    var answer8 = {};
+    var answer8a = {};
     data.forEach(function (e) {
-      if(answer8[e]) {
-        answer8[e] += 1;
+      if(answer8a[e]) {
+        answer8a[e] += 1;
       } else {
-        answer8[e] = 1;
+        answer8a[e] = 1;
       }
     });
-    console.log('answer8', answer8);
 
+    var answer8b = data.reduce(function (preDict, e) {
+      if(preDict[e]) {
+        preDict[e] += 1;
+      } else {
+        preDict[e] = 1;
+      }
+      return preDict;
+    }, {});
+
+    console.log('answer8a', answer8a);
+    console.log('answer8b', answer8b);
   </script>
 </body>
 </html>
