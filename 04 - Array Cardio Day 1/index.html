@@ -57,8 +57,10 @@
     });
 
     var answer3b = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
-    console.log('answer3a', answer3a);
-    console.log('answer3b', answer3b);
+    console.log('answer3a');
+    console.table(answer3a);
+    console.log('answer3b');
+    console.table(answer3b);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
@@ -69,13 +71,12 @@
 
     // 5. Sort the inventors by years lived
     var answer5 = inventors.sort(function (a, b) {
-      if ((a.passed - a.year) > (b.passed - b.year)) {
-        return 1;
-      } else {
-        return -1;
-      }
+      var older = a.passed - a.year;
+      var current = b.passed - b.year;
+      return older > current ? -1 : 1;
     });
-    console.log('answer5', answer5);
+    console.log('answer5');
+    console.table(answer5);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -94,6 +95,11 @@
     //     $('#data').append()
     //   }
     // )
+    // or just go to the url and then...
+    var blvdNodeList = document.querySelector('.mw-category').querySelectorAll('a');
+    var blvdList = Array.from(blvdNodeList);
+    var answer6 = blvdList.map(blvd => blvd.text).filter(blvd => blvd.includes('de'));
+    console.log('answer6', answer6);
 
 
     // 7. sort Exercise
