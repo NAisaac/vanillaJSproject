@@ -16,18 +16,38 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
-var cities;
+var cities, userInput, suggestionOutput;
+
+userInput = document.querySelector('.search');
+suggestionOutput = document.querySelector('.suggestions');
+
 //new API in the browser that does not require other library
 fetch(endpoint)
-  .then(dataBlob => dataBlob.json())
-  .then(data => {
-    cities = data
-    console.log('cities', cities);
-  });
   //returns a promise
-  // .then(blob => blob.json())
+  .then(dataBlob => dataBlob.json())
   //json-ified data blob promise
-  // .then(data => cities = data)
+  .then(data => cities = data);
+
+//find a list of places where the search word is in the city or state name
+function findMatches(searchWord, cities) {
+  return cities.filter(place => {
+    // regex flags: g - global, i - case insensitive
+    var regex = new RegExp(searchWord, 'gi');
+    return place.city.match(regex) || place.state.match(regex);
+  });
+}
+
+//display the matches in the suggestions section
+function showMatches() {
+  const matches = findMatches(this.value, cities);
+  //use template literals to create html array which is joined w/o a separator to be html string
+  var html = matches.map(place => {
+    return `<li><span class="name">${place.city}, ${place.state}</span><span class="population">${place.population}</span></li>`;
+  }).join('');
+  suggestionOutput.innerHTML = html;
+}
+
+userInput.addEventListener('input', showMatches);
 
 </script>
   </body>
