@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×CLICK×ME×</p>
+
+  <script>
+    const pets = [{ name: 'Junior', age: 3 }, { name: 'Lyon', age: 2 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('hello');
+
+    // String interpolation
+    var foo = 'plain ol';
+    console.log('Hello I am a %s string!', 'plain ol');
+    console.log(`Hello I am a ${foo} string!`);
+
+    // Styling
+    console.log('%c I am some fancy text', 'font-size:50px; background:red; text-shadow: 10px 10px 0 blue')
+
+    // Warning
+    console.warn('OH NOOO');
+
+    // Error
+    console.error('Shit!');
+
+    // Info
+    console.info('Crocodiles eat 3-4 people per year');
+
+    // clearing
+    console.clear();
+
+    const p = document.querySelector('p');
+    // Testing
+    //
+    console.assert(p.classList.contains('ouch'), 'That is wrong!');
+
+    // Viewing DOM Elements
+    // shows the element
+    console.log(p);
+    // dir shows what's on the element
+    console.dir(p);
+
+    // Grouping together
+    pets.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    });
+
+    // Counting
+    console.count('Isaac');
+    console.count('Jo');
+    console.count('Jo');
+    console.count('Jo');
+    console.count('Isaac');
+    console.count('Isaac');
+    console.count('Jo');
+
+
+    // Timing
+    // console.time and console.timeEnd must have the same string
+    console.time('How long does it take to fetch this data?');
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+    fetch(endpoint)
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('How long does it take to fetch this data?');
+        console.log(data);
+      });
+
+    // Table
+    // displays an array of objects
+    console.table(pets);
+
+  </script>
+</body>
+</html>
