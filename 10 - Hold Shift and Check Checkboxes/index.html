@@ -102,8 +102,8 @@
   const checkBoxes = document.querySelectorAll('input');
   var startId, endId;
 
-  function onClick (e) {
-    if (e.shiftKey) {
+  function onClick(e) {
+    if (e.shiftKey && this.checked) {
       if (startId) {
         endId = this.getAttribute('id');
         addMultiCheck(startId, endId);
@@ -113,7 +113,7 @@
     }
   }
 
-  function addMultiCheck (indexA, indexB) {
+  function addMultiCheck(indexA, indexB) {
     if (indexA < indexB) {
       addCheckedAttribute(indexA, indexB);
     } else {
@@ -123,7 +123,7 @@
     endId = null;
   }
 
-  function addCheckedAttribute (start, end) {
+  function addCheckedAttribute(start, end) {
     checkBoxes.forEach((checkBox, index) => {
       if (index >= start && index <= end) {
         checkBox.checked = true;
@@ -131,8 +131,10 @@
     })
   }
 
-  checkBoxes.forEach((checkBox, index) => checkBox.setAttribute('id', index));
-  checkBoxes.forEach(checkBox => checkBox.addEventListener('click', onClick));
+  checkBoxes.forEach((checkBox, index) => {
+    checkBox.setAttribute('id', index);
+    checkBox.addEventListener('click', onClick)
+  });
 
 </script>
 </body>

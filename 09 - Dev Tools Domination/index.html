@@ -42,7 +42,7 @@
 
     const p = document.querySelector('p');
     // Testing
-    //
+    // Prints the string (2nd arg) only if the test (1st arg) is false
     console.assert(p.classList.contains('ouch'), 'That is wrong!');
 
     // Viewing DOM Elements
@@ -52,12 +52,12 @@
     console.dir(p);
 
     // Grouping together
-    pets.forEach(dog => {
-      console.groupCollapsed(`${dog.name}`);
-      console.log(`This is ${dog.name}`);
-      console.log(`${dog.name} is ${dog.age} years old`);
-      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
-      console.groupEnd(`${dog.name}`);
+    pets.forEach(pet => {
+      console.groupCollapsed(`${pet.name}`);
+      console.log(`This is ${pet.name}`);
+      console.log(`${pet.name} is ${pet.age} years old`);
+      console.log(`${pet.name} is ${pet.age * 7} pet years old`);
+      console.groupEnd(`${pet.name}`);
     });
 
     // Counting
