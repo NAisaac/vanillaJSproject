@@ -43,6 +43,8 @@
   </div>
 
   <script>
+    // write out our own debounce function
+    // wait X milliseconds until triggering the function again
     function debounce(func, wait = 20, immediate = true) {
       var timeout;
       return function() {
@@ -57,6 +59,30 @@
         if (callNow) func.apply(context, args);
       };
     }
+
+    const slideImages = document.querySelectorAll('img');
+
+    function checkSlide(e) {
+      // needs to be calculated every scroll
+      slideImages.forEach(slideImage => {
+        // half way through the image
+        const slideInAt = (window.scrollY + window.innerHeight)
+        - slideImage.height / 2;
+        // bottom of the image
+        const imageBottom = slideImage.offsetTop + slideImage.height;
+        // check that half of the image is shown
+        const isHalfShown = slideInAt > slideImage.offsetTop;
+        // check that image has not been scrolled past
+        const isNotScrolledPast = window.scrollY < imageBottom;
+        if (isHalfShown && isNotScrolledPast) {
+          slideImage.classList.add('active');
+        } else {
+          slideImage.classList.remove('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', debounce(checkSlide))
 
   </script>
 
