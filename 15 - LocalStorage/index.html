@@ -28,12 +28,13 @@
 <script>
   const itemsList = document.querySelector('.plates');
   const addItems = document.querySelector('.add-items');
-  const items = [];
+  // try getting from LocalStorage or fall back to an empty array
+  const items = JSON.parse(localStorage.getItem('items')) || [];
 
   function addItem(e) {
     // default form behavior: page refresh/reload when submitted
     e.preventDefault();
-    // this is the addItems (form) selection
+    // "this" is the form html selection
     const text = (this.querySelector('[name=item]')).value;
     const item = {
       text: text,
@@ -43,22 +44,42 @@
     items.push(item);
     populateMenu(items, itemsList);
 
+    // LocalStorage can only hold a key value pair where value must be a STRING
+    localStorage.setItem('items', JSON.stringify(items));
+
     // form element method to reset the form
     this.reset();
   }
 
   function populateMenu(menus = [], menuHtml) {
     menuHtml.innerHTML = menus.map((menu, i) => {
+      // https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/How_to_structure_an_HTML_form
+      // <label> is associatied with <input> through for and id attribute, respectively
       return `
       <li>
-        <label for="">${menu.text}</label>
+        <input type="checkbox" id="item${i}" data-index=${i} ${menu.done ? 'checked' : ''} />
+        <label for="item${i}">${menu.text}</label>
       </li>
       `;
     }).join('');
   }
 
+  function checkboxUpdate(e) {
+    // since we are listening to any click on the parent element, we want to filter out
+    // clicks on any element besides the input tag a.k.a. the checkbox
+    if (!e.target.matches('input')) return;
+    const el = e.target;
+    const index = el.dataset.index;
+    // toggle the checkbox
+    items[index].done = !items[index].done
+    localStorage.setItem('items', JSON.stringify(items));
+    // populateMenu(items, itemsList);
+  }
 
   addItems.addEventListener('submit', addItem);
+  itemsList.addEventListener('click', checkboxUpdate);
+  // populate menu if there is anything on LocalStorage
+  populateMenu(items, itemsList);
 </script>
 
 
