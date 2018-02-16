@@ -59,5 +59,5 @@ ranges.forEach(range => range.addEventListener('mousedown', () => isMouseDown = 
 
 progress.addEventListener('click', videoScrub);
 progress.addEventListener('mousemove', (e) => isMouseDown && videoScrub(e));
-progress.addEventListener('mousedown', () => isMouseDown = true);
 progress.addEventListener('mouseup', () => isMouseDown = false);
+progress.addEventListener('mousedown', () => isMouseDown = true);
